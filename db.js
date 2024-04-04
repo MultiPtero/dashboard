@@ -3,20 +3,22 @@ require("dotenv").config();
 const uri = process.env.mongoUri; // Replace with your MongoDB connection string
 const client = new MongoClient(uri);
 
-async function connectToDatabase() {
+async function connect() {
   try {
     await client.connect();
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error(err);
+    console.log("Error al conectar. Saliendo...");
+    process.exit(1);
   }
 }
 
-const db = client.db("mydatabase"); // Replace with your database name
+const db = client.db("mp-app"); // Replace with your database name
 const usersCollection = db.collection("users");
 const serversCollection = db.collection("servers");
 
-async function findUser(email, password) {
+async function findUser(userhash) {
   try {
     const user = await usersCollection.findOne({ email, password });
     if (user) {
@@ -31,7 +33,7 @@ async function findUser(email, password) {
   }
 }
 
-async function createUser(email, password) {
+async function createUser(userhash) {
   try {
     const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
@@ -47,7 +49,7 @@ async function createUser(email, password) {
   }
 }
 
-async function findServerUser(path, user) {
+async function findServerUser(hash) {
   try {
     const server = await serversCollection.findOne({ path, user });
     if (server) {
@@ -62,4 +64,4 @@ async function findServerUser(path, user) {
   }
 }
 
-module.exports = { connectToDatabase, findUser, createUser, findServerUser };
+module.exports = { connect, findUser, createUser, findServerUser };
