@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const sess = require("express-session");
 const crypto = require("crypto");
-const db = require("./db");
+const db = require("./conn/db");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
