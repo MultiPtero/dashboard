@@ -1,11 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import Button from "./ui/powerButtons"
+import Card from "./ui/card"
 
 export default function Component() {
-    const [serverStatus, setServerStatus] = useState < 'stopped' | 'running' | 'restarting' > ('running')
+    const [serverStatus, setServerStatus] = useState('stopped')
+
+    const handlePowerAction = () => {
+        setServerStatus(serverStatus === 'stopped' ? 'running' : 'running')
+    }
 
     // SVG icons as components
     const WifiIcon = () => (
@@ -67,24 +71,7 @@ export default function Component() {
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-semibold">Demo server</h1>
                     <div className="flex gap-2">
-                        <Button
-                            onClick={() => setServerStatus('running')}
-                            className="bg-blue-600 hover:bg-blue-700"
-                        >
-                            Start
-                        </Button>
-                        <Button
-                            onClick={() => setServerStatus('restarting')}
-                            variant="secondary"
-                        >
-                            Restart
-                        </Button>
-                        <Button
-                            onClick={() => setServerStatus('stopped')}
-                            className="bg-red-600 hover:bg-red-700"
-                        >
-                            Stop
-                        </Button>
+                        <Button status={serverStatus} onClick={handlePowerAction} />
                     </div>
                 </div>
 
@@ -99,7 +86,7 @@ export default function Component() {
                         </div>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <Card className="bg-gray-800 p-4 rounded-lg">
                             <div className="flex items-center gap-3">
                                 <WifiIcon />
@@ -110,65 +97,69 @@ export default function Component() {
                             </div>
                         </Card>
 
-                        <Card className="bg-gray-800 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <ClockIcon />
-                                <div>
-                                    <div className="text-sm text-gray-400">Uptime</div>
-                                    <div className="text-gray-300">6d 5h 22m</div>
+                        {serverStatus === 'stopped' ? (
+                            <Card className="bg-gray-800 p-4 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                    <CloudIcon />
+                                    <div>
+                                        <div className="text-sm text-gray-400">Server status</div>
+                                        <div className="text-gray-300">Offline</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
+                            </Card>
+                        ) : (
+                            <div>
+                                <Card className="bg-gray-800 p-4 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <ClockIcon />
+                                        <div>
+                                            <div className="text-sm text-gray-400">Uptime</div>
+                                            <div className="text-gray-300">{Math.floor(Math.random() * 30)}d {Math.floor(Math.random() * 24)}h {Math.floor(Math.random() * 60)}m</div>
+                                        </div>
+                                    </div>
+                                </Card>
 
-                        <Card className="bg-gray-800 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <CpuIcon />
-                                <div>
-                                    <div className="text-sm text-gray-400">CPU Load</div>
-                                    <div className="text-gray-300">0.07% / 100%</div>
-                                </div>
-                            </div>
-                        </Card>
+                                <Card className="bg-gray-800 p-4 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <CpuIcon />
+                                        <div>
+                                            <div className="text-sm text-gray-400">CPU Load</div>
+                                            <div className="text-gray-300">{(Math.random() * 100).toFixed(2)}% / 100%</div>
+                                        </div>
+                                    </div>
+                                </Card>
 
-                        <Card className="bg-gray-800 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <MemoryIcon />
-                                <div>
-                                    <div className="text-sm text-gray-400">Memory</div>
-                                    <div className="text-gray-300">127.98 MB / 1 GB</div>
-                                </div>
-                            </div>
-                        </Card>
+                                <Card className="bg-gray-800 p-4 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <MemoryIcon />
+                                        <div>
+                                            <div className="text-sm text-gray-400">Memory</div>
+                                            <div className="text-gray-300">{(Math.random() * 900).toFixed(2)} MB / 1 GB</div>
+                                        </div>
+                                    </div>
+                                </Card>
 
-                        <Card className="bg-gray-800 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <DiskIcon />
-                                <div>
-                                    <div className="text-sm text-gray-400">Disk</div>
-                                    <div className="text-gray-300">18.03 MB / 1 GB</div>
-                                </div>
-                            </div>
-                        </Card>
+                                <Card className="bg-gray-800 p-4 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <DiskIcon />
+                                        <div>
+                                            <div className="text-sm text-gray-400">Disk</div>
+                                            <div className="text-gray-300">{(Math.random() * 500).toFixed(2)} MB / 1 GB</div>
+                                        </div>
+                                    </div>
+                                </Card>
 
-                        <Card className="bg-gray-800 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <CloudIcon />
-                                <div>
-                                    <div className="text-sm text-gray-400">Network (Inbound)</div>
-                                    <div className="text-gray-300">423.59 KB</div>
-                                </div>
+                                <Card className="bg-gray-800 p-4 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <CloudIcon />
+                                        <div>
+                                            <div className="text-sm text-gray-400">Network usage</div>
+                                            <div className="text-gray-300">{(Math.random() * 1000).toFixed(2)} KB / {(Math.random() * 1000).toFixed(2)} KB</div>
+                                        </div>
+                                    </div>
+                                </Card>
                             </div>
-                        </Card>
-
-                        <Card className="bg-gray-800 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <CloudIcon />
-                                <div>
-                                    <div className="text-sm text-gray-400">Network (Outbound)</div>
-                                    <div className="text-gray-300">277.14 KB</div>
-                                </div>
-                            </div>
-                        </Card>
+                        )}
                     </div>
                 </div>
             </div>
