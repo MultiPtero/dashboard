@@ -1,3 +1,6 @@
+---
+import Image from "astro/components/Image.astro"
+---
 <section>
   <div
     class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
@@ -17,10 +20,12 @@
       <div
         class="lg:mt-0 mt-12 h-full hidden lg:block rounded-3xl overflow-hidden border border-gray-200">
         <div class="bg-gray-100 p-8 rounded-2xl overflow-hidden">
-          <img
+          <Image
             alt="Dashboard preview"
             class="border border-gray-200 lg:rounded-3xl object-cover rounded shadow-2xl"
             src="https://brightlight.lexingtonthemes.com/assets/dashboard.svg"
+            width={800}
+            height={600}
           />
         </div>
       </div>
