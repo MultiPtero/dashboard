@@ -117,6 +117,19 @@ function MigrationForm() {
                                 className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
+                        <div>
+                            <label htmlFor="servertype" className='flex items-center space-x-2 font-semibold mb-1'>
+                                <TbServer2 /> <span>Tipo de servidor</span>
+                            </label>
+                            <Select
+                                className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                classNamePrefix="select"
+                                isClearable={isClearable}
+                                isSearchable={isSearchable}
+                                name="servertype"
+                                options={ServerTypeOptions}
+                            />
+                        </div>
                     </div>
                 </div>
 
