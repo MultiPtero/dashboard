@@ -1,9 +1,18 @@
 import { useState } from 'react';
 import { FaUser, FaServer, FaLock } from 'react-icons/fa';
+import { TbServer2, TbServerBolt } from 'react-icons/tb';
+import Select from 'react-select';
 
 function MigrationForm() {
     // Estado para manejar el progreso del proceso (simulación)
     const [step, setStep] = useState(1);
+    const [isClearable, setIsClearable] = useState(true);
+    const [isSearchable, setIsSearchable] = useState(true);
+    const ServerTypeOptions = [
+        { value: 'linux', label: 'Chocolate' },
+        { value: 'pterodactyl', label: 'Pterodactyl' },
+        { value: 'pufferfish', label: 'PufferFish' }
+    ]
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center">
@@ -22,35 +31,51 @@ function MigrationForm() {
                     {/* Primer servidor */}
                     <div className="space-y-4">
                         <div>
-                            <label for="" className="flex items-center space-x-2 font-semibold mb-1">
+                            <label htmlFor="username" className="flex items-center space-x-2 font-semibold mb-1">
                                 <FaUser /> <span>Nombre de usuario</span>
                             </label>
                             <input
                                 type="text"
-                                placeholder="Usuario del servidor antiguo"
+                                id="username"
+                                placeholder="Nombre de usuario del servidor antiguo"
                                 className="w-full p-3 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
                         <div>
-                            <label for="" className="flex items-center space-x-2 font-semibold mb-1">
+                            <label htmlFor="sftp1" className="flex items-center space-x-2 font-semibold mb-1">
                                 <FaServer /> <span>Dirección SFTP</span>
                             </label>
                             <input
                                 type="text"
+                                id="sftp1"
                                 placeholder="sftp://example.com"
                                 className="w-full p-3 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
                         <div>
-                            <label for="" className="flex items-center space-x-2 font-semibold  mb-1">
+                            <label htmlFor="password1" className="flex items-center space-x-2 font-semibold  mb-1">
                                 <FaLock /> <span>Contraseña SFTP</span>
                             </label>
                             <input
                                 type="password"
+                                id="password1"
                                 placeholder="Contraseña segura"
                                 className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="servertype" className='flex items-center space-x-2 font-semibold mb-1'>
+                                <TbServer2 /> <span>Tipo de servidor</span>
+                            </label>
+                            <Select
+                                className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                classNamePrefix="select"
+                                isClearable={isClearable}
+                                isSearchable={isSearchable}
+                                name="servertype"
+                                options={ServerTypeOptions}
                             />
                         </div>
                     </div>
@@ -58,33 +83,36 @@ function MigrationForm() {
                     {/* Segundo servidor */}
                     <div className="space-y-4">
                         <div>
-                            <label for="" className="flex items-center space-x-2 font-semibold  mb-1">
+                            <label htmlFor="username2" className="flex items-center space-x-2 font-semibold  mb-1">
                                 <FaUser /> <span>Nombre de usuario</span>
                             </label>
                             <input
                                 type="text"
+                                id="username2"
                                 placeholder="Usuario del servidor nuevo"
                                 className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
                         <div>
-                            <label for="" className="flex items-center space-x-2 font-semibold  mb-1">
+                            <label htmlFor="sftp2" className="flex items-center space-x-2 font-semibold  mb-1">
                                 <FaServer /> <span>Dirección SFTP</span>
                             </label>
                             <input
                                 type="text"
+                                id="sftp2"
                                 placeholder="sftp://example.com"
                                 className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
                         <div>
-                            <label for="" className="flex items-center space-x-2 font-semibold  mb-1">
+                            <label htmlFor="password2" className="flex items-center space-x-2 font-semibold  mb-1">
                                 <FaLock /> <span>Contraseña SFTP</span>
                             </label>
                             <input
                                 type="password"
+                                id="password2"
                                 placeholder="Contraseña segura"
                                 className="w-full p-3 rounded-lg gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
