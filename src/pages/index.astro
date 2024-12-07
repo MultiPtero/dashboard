@@ -4,11 +4,17 @@ import Hero from "../components/landing/Hero.astro";
 import SectionOne from "../components/landing/SectionOne.astro";
 import SectionTwo from "../components/landing/SectionTwo.astro";
 import Pricing from "../components/landing/HostingList";
+import Faq from "../components/infopages/Faq.astro";
 ---
-<BaseLayout>
+
+<BaseLayout
+  title="MultiPtero: Control centralizado para tus servidores Pterodactyl"
+  description="Administra múltiples instancias de Pterodactyl desde una única interfaz. MultiPtero te permite gestionar todos tus servidores de juegos de forma eficiente y en tiempo real."
+>
 
   <Hero />
   <SectionOne />
   <SectionTwo />
   <Pricing />
+  <Faq client:load />
 </BaseLayout>
